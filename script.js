@@ -166,6 +166,30 @@ const geocoder = L.Control.geocoder({
 const geocoderContainer = geocoder.getContainer();
 document.getElementById('search-container').appendChild(geocoderContainer);
 
+// Auto-search (Debounce) on typing
+let geocodeTimeout;
+const geocoderInputEl = document.querySelector('.leaflet-control-geocoder-form input');
+if (geocoderInputEl) {
+    geocoderInputEl.addEventListener('input', (e) => {
+        clearTimeout(geocodeTimeout);
+        const query = e.target.value.trim();
+        if (query.length > 3) {
+            geocodeTimeout = setTimeout(() => {
+                if (geocoder.options && geocoder.options.geocoder && geocoder._displayResults) {
+                    geocoder.options.geocoder.geocode(query, function(results) {
+                        if (geocoder._clearResults) geocoder._clearResults();
+                        if (results && results.length > 0) {
+                            geocoder._displayResults(results);
+                        }
+                    });
+                }
+            }, 800);
+        } else if (query.length === 0 && geocoder._clearResults) {
+            geocoder._clearResults();
+        }
+    });
+}
+
 // DYNAMIC IMAGE ANT ICON
 function getAntIcon(category) {
     // Map categories to specific CSS filter classes
