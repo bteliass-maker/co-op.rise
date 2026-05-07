@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coope.rise - Red de Cooperación</title>
+    
+    <!-- Google Fonts: Vollkorn for title, Montserrat for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Leaflet Geocoder CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ants-path"></div>
+
+    <div class="app-wrapper">
+        <div id="map"></div>
+
+        <div class="header">
+            <h1>coope<span class="dot-arrow">.</span>rise</h1>
+            <p>red de cooperación territorial ante el alza de precios</p>
+        </div>
+
+        <!-- Top Controls: Search & Custom Filters -->
+        <div class="top-controls">
+            <div id="search-container" class="search-box"></div>
+            <div class="custom-map-filters">
+                <label class="filter-option"><input type="checkbox" checked value="prestar"> Prestar</label>
+                <label class="filter-option"><input type="checkbox" checked value="ayudar"> Ayudar</label>
+                <label class="filter-option"><input type="checkbox" checked value="movilizacion"> Movilización</label>
+            </div>
+            <input type="text" id="content-search" class="content-search" placeholder="Buscar en hormigas...">
+        </div>
+
+        <!-- Modal for adding information -->
+        <div id="info-modal" class="modal">
+            <div class="modal-content">
+                <h2>Categorizar Participación</h2>
+                
+                <div class="category-selector">
+                    <button class="category-btn" data-category="prestar">Prestar</button>
+                    <button class="category-btn" data-category="ayudar">Ayudar</button>
+                    <button class="category-btn" data-category="movilizacion">Movilización</button>
+                </div>
+
+                <!-- Conditional Fields for "Prestar" -->
+                <div id="fields-prestar" class="conditional-fields">
+                    <div class="input-group">
+                        <label>¿Algo que puedas prestar?</label>
+                        <textarea id="prestar-dar" placeholder="Herramientas, tiempo, espacio..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>¿Algo que necesites usar?</label>
+                        <textarea id="prestar-pedir" placeholder="Indica qué necesitas..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Conditional Fields for "Ayudar" -->
+                <div id="fields-ayudar" class="conditional-fields">
+                    <div class="input-group">
+                        <label>¿En qué puedes ayudar?</label>
+                        <textarea id="ayudar-dar" placeholder="Indica cómo puedes colaborar..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>¿En algo que necesites ayuda?</label>
+                        <textarea id="ayudar-pedir" placeholder="Indica en qué necesitas ayuda..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Generic Fields for Movilización -->
+                <div id="fields-generic" class="conditional-fields">
+                    <div class="input-group">
+                        <label id="generic-label">Detalles de la movilización</label>
+                        <textarea id="generic-info" placeholder="Punto de encuentro, objetivo..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button id="cancel-btn" class="btn-secondary">Cancelar</button>
+                    <button id="save-btn" class="btn-primary">Guardar Punto</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Chat Sidebar -->
+        <div id="chat-sidebar" class="chat-sidebar">
+            <div class="chat-header">
+                <h3>Chat Común</h3>
+                <button id="close-chat" class="close-btn">&times;</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
+                <button id="send-chat-btn">Enviar</button>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button id="toggle-chat-btn" class="toggle-chat-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+    </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Leaflet Geocoder JS -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
