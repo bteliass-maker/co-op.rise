@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>coope.rise - Red de Cooperación</title>
+    <title>co-op.rise - Red de Cooperación</title>
     
     <!-- Google Fonts: Vollkorn for title, Montserrat for UI -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,67 +25,71 @@
         <div id="map"></div>
 
         <div class="header">
-            <h1>coope<span class="dot-arrow">.</span>rise</h1>
-            <p>red de cooperación territorial ante el alza de precios</p>
+            <div class="language-switcher">
+                <button id="lang-es" class="lang-btn active">ES</button>
+                <button id="lang-en" class="lang-btn">EN</button>
+            </div>
+            <h1>co-op<span class="dot-arrow">.</span>rise</h1>
+            <p data-i18n="subtitle">red de cooperación territorial ante el alza de precios</p>
         </div>
 
         <!-- Top Controls: Search & Custom Filters -->
         <div class="top-controls">
             <div id="search-container" class="search-box"></div>
             <div class="custom-map-filters">
-                <label class="filter-option"><input type="checkbox" checked value="prestar"> Prestar</label>
-                <label class="filter-option"><input type="checkbox" checked value="ayudar"> Ayudar</label>
-                <label class="filter-option"><input type="checkbox" checked value="movilizacion"> Movilización</label>
+                <label class="filter-option"><input type="checkbox" checked value="prestar"> <span data-i18n="cat_prestar">Prestar</span></label>
+                <label class="filter-option"><input type="checkbox" checked value="ayudar"> <span data-i18n="cat_ayudar">Ayudar</span></label>
+                <label class="filter-option"><input type="checkbox" checked value="movilizacion"> <span data-i18n="cat_movilizacion">Movilización</span></label>
             </div>
-            <input type="text" id="content-search" class="content-search" placeholder="Buscar en hormigas...">
+            <input type="text" id="content-search" class="content-search" data-i18n-placeholder="search_ants" placeholder="Buscar en hormigas...">
         </div>
 
         <!-- Modal for adding information -->
         <div id="info-modal" class="modal">
             <div class="modal-content">
-                <h2>Categorizar Participación</h2>
+                <h2 data-i18n="modal_title">Categorizar Participación</h2>
                 
                 <div class="category-selector">
-                    <button class="category-btn" data-category="prestar">Prestar</button>
-                    <button class="category-btn" data-category="ayudar">Ayudar</button>
-                    <button class="category-btn" data-category="movilizacion">Movilización</button>
+                    <button class="category-btn" data-category="prestar" data-i18n="cat_prestar">Prestar</button>
+                    <button class="category-btn" data-category="ayudar" data-i18n="cat_ayudar">Ayudar</button>
+                    <button class="category-btn" data-category="movilizacion" data-i18n="cat_movilizacion">Movilización</button>
                 </div>
 
                 <!-- Conditional Fields for "Prestar" -->
                 <div id="fields-prestar" class="conditional-fields">
                     <div class="input-group">
-                        <label>¿Algo que puedas prestar?</label>
-                        <textarea id="prestar-dar" placeholder="Herramientas, tiempo, espacio..."></textarea>
+                        <label data-i18n="prestar_dar_label">¿Algo que puedas prestar?</label>
+                        <textarea id="prestar-dar" data-i18n-placeholder="prestar_dar_placeholder" placeholder="Herramientas, tiempo, espacio..."></textarea>
                     </div>
                     <div class="input-group">
-                        <label>¿Algo que necesites usar?</label>
-                        <textarea id="prestar-pedir" placeholder="Indica qué necesitas..."></textarea>
+                        <label data-i18n="prestar_pedir_label">¿Algo que necesites usar?</label>
+                        <textarea id="prestar-pedir" data-i18n-placeholder="prestar_pedir_placeholder" placeholder="Indica qué necesitas..."></textarea>
                     </div>
                 </div>
 
                 <!-- Conditional Fields for "Ayudar" -->
                 <div id="fields-ayudar" class="conditional-fields">
                     <div class="input-group">
-                        <label>¿En qué puedes ayudar?</label>
-                        <textarea id="ayudar-dar" placeholder="Indica cómo puedes colaborar..."></textarea>
+                        <label data-i18n="ayudar_dar_label">¿En qué puedes ayudar?</label>
+                        <textarea id="ayudar-dar" data-i18n-placeholder="ayudar_dar_placeholder" placeholder="Indica cómo puedes colaborar..."></textarea>
                     </div>
                     <div class="input-group">
-                        <label>¿En algo que necesites ayuda?</label>
-                        <textarea id="ayudar-pedir" placeholder="Indica en qué necesitas ayuda..."></textarea>
+                        <label data-i18n="ayudar_pedir_label">¿En algo que necesites ayuda?</label>
+                        <textarea id="ayudar-pedir" data-i18n-placeholder="ayudar_pedir_placeholder" placeholder="Indica en qué necesitas ayuda..."></textarea>
                     </div>
                 </div>
 
                 <!-- Generic Fields for Movilización -->
                 <div id="fields-generic" class="conditional-fields">
                     <div class="input-group">
-                        <label id="generic-label">Detalles de la movilización</label>
-                        <textarea id="generic-info" placeholder="Punto de encuentro, objetivo..."></textarea>
+                        <label id="generic-label" data-i18n="movilizacion_label">Detalles de la movilización</label>
+                        <textarea id="generic-info" data-i18n-placeholder="movilizacion_placeholder" placeholder="Punto de encuentro, objetivo..."></textarea>
                     </div>
                 </div>
 
                 <div class="modal-buttons">
-                    <button id="cancel-btn" class="btn-secondary">Cancelar</button>
-                    <button id="save-btn" class="btn-primary">Guardar Punto</button>
+                    <button id="cancel-btn" class="btn-secondary" data-i18n="btn_cancel">Cancelar</button>
+                    <button id="save-btn" class="btn-primary" data-i18n="btn_save">Guardar Punto</button>
                 </div>
             </div>
         </div>
@@ -93,15 +97,15 @@
         <!-- Common Chat Sidebar -->
         <div id="chat-sidebar" class="chat-sidebar">
             <div class="chat-header">
-                <h3>Chat Común</h3>
+                <h3 data-i18n="chat_title">Chat Común</h3>
                 <button id="close-chat" class="close-btn">&times;</button>
             </div>
             <div id="chat-messages" class="chat-messages">
                 <!-- Messages will appear here -->
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
-                <button id="send-chat-btn">Enviar</button>
+                <input type="text" id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Escribe un mensaje...">
+                <button id="send-chat-btn" data-i18n="chat_send">Enviar</button>
             </div>
         </div>
 

@@ -1,3 +1,127 @@
+// --- Translations ---
+const i18n = {
+    es: {
+        subtitle: "red de cooperación territorial ante el alza de precios",
+        cat_prestar: "Prestar",
+        cat_ayudar: "Ayudar",
+        cat_movilizacion: "Movilización",
+        search_ants: "Buscar en hormigas...",
+        modal_title: "Categorizar Participación",
+        prestar_dar_label: "¿Algo que puedas prestar?",
+        prestar_dar_placeholder: "Herramientas, tiempo, espacio...",
+        prestar_pedir_label: "¿Algo que necesites usar?",
+        prestar_pedir_placeholder: "Indica qué necesitas...",
+        ayudar_dar_label: "¿En qué puedes ayudar?",
+        ayudar_dar_placeholder: "Indica cómo puedes colaborar...",
+        ayudar_pedir_label: "¿En algo que necesites ayuda?",
+        ayudar_pedir_placeholder: "Indica en qué necesitas ayuda...",
+        movilizacion_label: "Detalles de la movilización",
+        movilizacion_placeholder: "Punto de encuentro, objetivo...",
+        btn_cancel: "Cancelar",
+        btn_save: "Guardar Punto",
+        chat_title: "Chat Común",
+        chat_placeholder: "Escribe un mensaje...",
+        chat_send: "Enviar",
+        search_address: "Buscar una dirección...",
+        popup_category: "Categoría",
+        popup_can_lend: "Puedo prestar",
+        popup_need: "Necesito",
+        popup_can_help: "Puedo ayudar en",
+        popup_need_help: "Necesito ayuda en",
+        popup_contact: "Contactar",
+        alert_empty_fields: "Por favor, completa al menos un campo para continuar.",
+        chat_interested: "Interesado en punto: "
+    },
+    en: {
+        subtitle: "territorial cooperation network in the face of rising prices",
+        cat_prestar: "Lend",
+        cat_ayudar: "Help",
+        cat_movilizacion: "Mobilization",
+        search_ants: "Search in ants...",
+        modal_title: "Categorize Participation",
+        prestar_dar_label: "Something you can lend?",
+        prestar_dar_placeholder: "Tools, time, space...",
+        prestar_pedir_label: "Something you need to use?",
+        prestar_pedir_placeholder: "Indicate what you need...",
+        ayudar_dar_label: "How can you help?",
+        ayudar_dar_placeholder: "Indicate how you can collaborate...",
+        ayudar_pedir_label: "Do you need help with something?",
+        ayudar_pedir_placeholder: "Indicate what you need help with...",
+        movilizacion_label: "Mobilization details",
+        movilizacion_placeholder: "Meeting point, goal...",
+        btn_cancel: "Cancel",
+        btn_save: "Save Point",
+        chat_title: "Common Chat",
+        chat_placeholder: "Write a message...",
+        chat_send: "Send",
+        search_address: "Search for an address...",
+        popup_category: "Category",
+        popup_can_lend: "I can lend",
+        popup_need: "I need",
+        popup_can_help: "I can help with",
+        popup_need_help: "I need help with",
+        popup_contact: "Contact",
+        alert_empty_fields: "Please fill in at least one field to continue.",
+        chat_interested: "Interested in point: "
+    }
+};
+
+let currentLang = localStorage.getItem('cooperise-lang') || 'es';
+
+function t(key) {
+    return i18n[currentLang][key] || key;
+}
+
+function updateLanguage() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[currentLang][key]) {
+            if (el.tagName === 'INPUT' && el.type === 'button') el.value = i18n[currentLang][key];
+            else el.textContent = i18n[currentLang][key];
+        }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (i18n[currentLang][key]) {
+            el.setAttribute('placeholder', i18n[currentLang][key]);
+        }
+    });
+
+    const langEs = document.getElementById('lang-es');
+    const langEn = document.getElementById('lang-en');
+    if (langEs) langEs.classList.toggle('active', currentLang === 'es');
+    if (langEn) langEn.classList.toggle('active', currentLang === 'en');
+
+    const geocoderInput = document.querySelector('.leaflet-control-geocoder-form input');
+    if (geocoderInput) {
+        geocoderInput.setAttribute('placeholder', t('search_address'));
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const langEs = document.getElementById('lang-es');
+    const langEn = document.getElementById('lang-en');
+    
+    if (langEs) {
+        langEs.addEventListener('click', () => {
+            currentLang = 'es';
+            localStorage.setItem('cooperise-lang', currentLang);
+            updateLanguage();
+        });
+    }
+    
+    if (langEn) {
+        langEn.addEventListener('click', () => {
+            currentLang = 'en';
+            localStorage.setItem('cooperise-lang', currentLang);
+            updateLanguage();
+        });
+    }
+
+    updateLanguage();
+});
+
 // State
 let pendingCoords = null;
 let currentCategory = 'prestar'; // default
@@ -18,7 +142,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 // Add Geocoder (Optimized Search)
 const geocoder = L.Control.geocoder({
     defaultMarkGeocode: false,
-    placeholder: "Buscar una dirección...",
+    placeholder: t("search_address"),
     collapsed: false,
     geocoder: L.Control.Geocoder.nominatim({
         geocodingQueryParams: {
@@ -154,24 +278,24 @@ function addMarkerToMap(lat, lng, category, data) {
     
     let popupHtml = `<div class="popup-info" style="min-width: 200px;">
         <div style="font-weight:bold;text-transform:uppercase;font-size:0.7rem;color:#666;margin-bottom:8px;">
-            Categoría: ${category}
+            ${t('popup_category')}: ${t('cat_' + category) || category}
         </div>`;
     
     if (category === 'prestar') {
         popupHtml += `
-            <p><strong>Puedo prestar:</strong> ${data.dar || '-'}</p>
-            <p style="margin-top:5px;"><strong>Necesito:</strong> ${data.pedir || '-'}</p>
+            <p><strong>${t('popup_can_lend')}:</strong> ${data.dar || '-'}</p>
+            <p style="margin-top:5px;"><strong>${t('popup_need')}:</strong> ${data.pedir || '-'}</p>
         `;
     } else if (category === 'ayudar') {
         popupHtml += `
-            <p><strong>Puedo ayudar en:</strong> ${data.dar || '-'}</p>
-            <p style="margin-top:5px;"><strong>Necesito ayuda en:</strong> ${data.pedir || '-'}</p>
+            <p><strong>${t('popup_can_help')}:</strong> ${data.dar || '-'}</p>
+            <p style="margin-top:5px;"><strong>${t('popup_need_help')}:</strong> ${data.pedir || '-'}</p>
         `;
     } else {
         popupHtml += `<p>${data.info || '-'}</p>`;
     }
     
-    popupHtml += `<button class="contact-btn" data-category="${category}">Contactar</button></div>`;
+    popupHtml += `<button class="contact-btn" data-category="${category}">${t('popup_contact')}</button></div>`;
     
     marker.bindPopup(popupHtml, { className: 'custom-popup' });
     
@@ -239,7 +363,7 @@ saveBtn.addEventListener('click', () => {
         modal.style.display = 'none';
         pendingCoords = null;
     } else {
-        alert('Por favor, completa al menos un campo para continuar.');
+        alert(t('alert_empty_fields'));
     }
 });
 
@@ -326,7 +450,7 @@ chatInput.addEventListener('keypress', (e) => {
 document.addEventListener('click', function(e) {
     if (e.target && e.target.classList.contains('contact-btn')) {
         const category = e.target.getAttribute('data-category');
-        currentChatContext = `Interesado en punto: ${category}`;
+        currentChatContext = `${t('chat_interested')}${t('cat_' + category) || category}`;
         chatSidebar.classList.add('active');
         loadChatMessages();
         chatInput.focus();

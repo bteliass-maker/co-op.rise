@@ -76,6 +76,36 @@ body {
     min-width: 320px; /* Wider/Longer box */
 }
 
+/* Language Switcher */
+.language-switcher {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 2px 5px;
+}
+
+.lang-btn.active {
+    color: var(--black);
+    border-bottom: 2px solid var(--black);
+}
+
+.lang-btn:hover {
+    color: var(--black);
+}
+
 h1 {
     font-family: 'Vollkorn', serif;
     font-size: 1.8rem;
