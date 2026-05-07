@@ -556,31 +556,49 @@ textarea:focus {
     }
     
     .header {
-        top: 0; 
-        right: 0; 
-        left: 0;
+        top: 10px; 
+        right: 10px; 
+        left: 10px;
         min-width: 0;
-        padding: 1rem 3.5rem 1rem 1rem;
-        border-left: none;
-        border-right: none;
-        border-top: none;
+        padding: 0.8rem;
+        border-radius: 12px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .header p {
+        font-size: 0.5rem;
+        margin-top: 0.3rem;
     }
     
     .language-switcher {
-        top: 15px; 
+        top: 10px; 
         right: 15px;
     }
     
+    .lang-btn {
+        font-size: 0.55rem;
+    }
+    
     .top-controls {
-        top: 80px; 
+        top: 85px; 
         left: 10px; 
         right: 10px;
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
     }
     
     .leaflet-control-geocoder {
         width: 100% !important;
+        padding: 0.1rem 0.3rem !important;
+    }
+    
+    .leaflet-control-geocoder-form input {
+        font-size: 0.7rem !important;
+        padding: 0.3rem !important;
     }
     
     .custom-map-filters {
@@ -592,30 +610,56 @@ textarea:focus {
     .filter-option {
         flex: 1;
         justify-content: center;
-        padding: 0.6rem 0.2rem;
-        font-size: 0.6rem;
+        padding: 0.4rem 0.2rem;
+        font-size: 0.55rem;
     }
     
     .content-search {
         width: 100%;
+        font-size: 0.7rem;
+        padding: 0.4rem;
     }
     
     .modal-content {
-        padding: 1.5rem;
-        width: 95%;
+        padding: 1rem;
+        width: 90%;
         max-height: 90vh;
         overflow-y: auto;
     }
     
     .modal-content h2 {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
     }
     
     .category-selector {
         flex-direction: column;
         gap: 5px;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .category-btn {
+        padding: 0.5rem;
+        font-size: 0.6rem;
+    }
+    
+    .input-group {
+        margin-bottom: 1rem;
+    }
+    
+    .input-group label {
+        font-size: 0.55rem;
+    }
+    
+    textarea {
+        height: 60px;
+        padding: 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 0.8rem 1rem;
+        font-size: 0.65rem;
     }
     
     .chat-sidebar {
@@ -626,20 +670,21 @@ textarea:focus {
     .toggle-chat-btn {
         bottom: 20px;
         right: 20px;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
     }
     
     .custom-popup .leaflet-popup-content-wrapper {
-        padding: 0.5rem;
+        padding: 0.4rem;
     }
     
     .popup-info {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     .contact-btn {
-        padding: 0.5rem;
-        margin-top: 10px;
+        padding: 0.4rem;
+        margin-top: 8px;
+        font-size: 0.6rem;
     }
 }
